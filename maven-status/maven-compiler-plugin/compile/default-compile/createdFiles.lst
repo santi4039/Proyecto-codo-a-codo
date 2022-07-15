@@ -1,0 +1,9 @@
+com\example\Productos\controlador\ClienteControlador.class
+com\example\Productos\dto\ClienteRegistroDTO.class
+com\example\Productos\entidades\Rol.class
+com\example\Productos\servicio\ClienteServicioDTO.class
+com\example\Productos\entidades\Cliente.class
+com\example\Productos\controlador\RegistroClienteControlador.class
+com\example\Productos\repositorio\ClienteRepositorio.class
+com\example\Productos\seguridad\SecurityConfiguration.class
+com\example\Productos\servicio\ClienteServicio.class

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Control de clientes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+            integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+<div th:if="${msgExito != null}" class="alert alert-success alert-dismissible">
+    [[${msgExito}]]
+    <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+</div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Control de Productos</a>
+    <a class="navbar-brand" href="/clientes">Control de Usuarios</a>
+    <a class="navbar-brand" href="/mercados">Mercados General</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/nuevo">Agregar Producto</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/nuevoCliente"><i class="fas fa-user-plus"></i>&nbsp;Registrar Cliente</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<br>
+
+<div class="container text-center">
+    <form class="form-inline" th:action="@{/}">
+        <div class="form-group mb-2">
+            <label>Filtrar : </label>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text"  class="form-control">
+        </div>
+        <input type="submit" class="btn btn-info mb-2" value="Buscar">
+        &nbsp;&nbsp;
+        <input type="button" class="btn btn-secondary mb-2" value="Limpiar">
+    </form>
+    <br>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Nro de Tarjeta</th>
+            <th scope="col">Contraseña</th>
+            <th scope="col">F.Registro</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cliente : ${listaClientes}">
+            <td th:text="${cliente.id}"></td>
+            <td th:text="${cliente.nombre}"></td>
+            <td th:text="${cliente.apellido}"></td>
+            <td th:text="${cliente.email}"></td>
+            <td th:text="${cliente.telefono}"></td>
+            <td th:text="${cliente.nroTarjeta}"></td>
+            <td th:text="${cliente.password}"></td>
+            <td th:text="${#temporals.format(cliente.fechaRegistro, 'dd/MM/YYYY hh:mm a')}"></td>
+            <td class="inline">
+                <a class="btn btn-primary" th:href="@{'/editar_cliente/' + ${cliente.id}}" ><i class="fas fa-edit"></i>&nbsp;Editar</a>
+                &nbsp;
+                <a class="btn btn-danger" th:href="@{'/eliminar_cliente/' + ${cliente.id}}" onclick="eliminarCliente(this)"  ><i class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+    <script>
+        function eliminarCliente(elemento){
+            var ok = confirm('¿Estas seguro de eliminar este cliente?');
+
+            if(ok){
+                elemento.nextElementSibling.submit();
+            }
+        }
+    </script>
+
+</body>
+</html>
